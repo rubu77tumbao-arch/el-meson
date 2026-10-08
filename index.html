@@ -1,0 +1,3495 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EL MESÓN — Experiencia Gastronómica</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap');
+
+:root{
+  --bg:#080808;
+  --bg2:#0d0d0d;
+  --panel:#121212;
+  --panel2:#181818;
+  --line:#292929;
+  --text:#f4f1e9;
+  --muted:#858585;
+  --gold:#c9a76a;
+  --gold2:#e4c98f;
+  --red:#9f3030;
+  --green:#6fa36f;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",Arial,sans-serif;
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#050505;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:opacity .7s;
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-content{
+  text-align:center;
+}
+
+.loader-title{
+  font-family:"Playfair Display",serif;
+  font-size:52px;
+  letter-spacing:7px;
+}
+
+.loader-sub{
+  color:#777;
+  font-size:10px;
+  letter-spacing:4px;
+  margin-top:12px;
+}
+
+.loader-bar{
+  width:220px;
+  height:2px;
+  background:#222;
+  margin:25px auto;
+  overflow:hidden;
+}
+
+.loader-bar span{
+  display:block;
+  width:0;
+  height:100%;
+  background:var(--gold);
+  animation:loading 1.8s forwards;
+}
+
+@keyframes loading{
+  to{width:100%}
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:78px;
+  z-index:5000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 5%;
+
+  background:rgba(7,7,7,.86);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+  font-family:"Playfair Display",serif;
+  font-size:25px;
+  font-weight:700;
+  letter-spacing:3px;
+  white-space:nowrap;
+}
+
+.logo span{
+  color:var(--gold);
+}
+
+.nav{
+  display:flex;
+  gap:26px;
+  align-items:center;
+}
+
+.nav button{
+  border:0;
+  background:none;
+  color:#898989;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:11px;
+  transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+  color:#fff;
+}
+
+.header-actions{
+  display:flex;
+  gap:9px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  background:#121212;
+  color:#fff;
+  border-radius:5px;
+  transition:.2s;
+}
+
+.icon-btn:hover{
+  border-color:var(--gold);
+}
+
+.cart-number{
+  color:var(--gold);
+  font-weight:700;
+}
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+.page{
+  display:none;
+  min-height:100vh;
+  padding-top:78px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  border:0;
+  border-radius:4px;
+  padding:14px 23px;
+  font-weight:700;
+  transition:.25s;
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:#090909;
+}
+
+.btn-gold:hover{
+  background:var(--gold2);
+  transform:translateY(-2px);
+}
+
+.btn-dark{
+  background:#171717;
+  color:#fff;
+  border:1px solid var(--line);
+}
+
+.btn-dark:hover{
+  border-color:#777;
+}
+
+.btn-wide{
+  width:100%;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.home-hero{
+  min-height:calc(100vh - 78px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 7%;
+  position:relative;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at 50% 42%,#292318 0,#11100d 25%,#080808 67%);
+}
+
+.home-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.1;
+
+  background-image:
+    linear-gradient(#fff 1px,transparent 1px),
+    linear-gradient(90deg,#fff 1px,transparent 1px);
+
+  background-size:70px 70px;
+
+  mask-image:linear-gradient(to bottom,#000,transparent);
+}
+
+.hero-content{
+  position:relative;
+  max-width:950px;
+}
+
+.kicker{
+  color:var(--gold);
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:6px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.hero-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(70px,12vw,155px);
+  line-height:.8;
+  letter-spacing:-8px;
+}
+
+.hero-title span{
+  color:var(--gold);
+}
+
+.hero-text{
+  max-width:600px;
+  color:#898989;
+  margin:35px auto;
+  line-height:1.8;
+}
+
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* =========================
+   HOME CARDS
+========================= */
+
+.home-section{
+  padding:100px 7%;
+  background:#0b0b0b;
+}
+
+.section-header{
+  margin-bottom:45px;
+}
+
+.eyebrow{
+  color:var(--gold);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.section-header h2{
+  font-family:"Playfair Display",serif;
+  font-size:48px;
+}
+
+.section-header p{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.feature-card{
+  min-height:270px;
+  padding:30px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  position:relative;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.feature-card:hover{
+  transform:translateY(-5px);
+  border-color:#555;
+}
+
+.feature-icon{
+  font-size:42px;
+  margin-bottom:40px;
+}
+
+.feature-card h3{
+  font-family:"Playfair Display",serif;
+  font-size:25px;
+  margin-bottom:10px;
+}
+
+.feature-card p{
+  color:#777;
+  line-height:1.7;
+  font-size:13px;
+}
+
+/* =========================
+   MENU PAGE
+========================= */
+
+.page-top{
+  padding:80px 7% 50px;
+  background:
+    radial-gradient(circle at 70% 20%,#201c15,transparent 45%);
+}
+
+.page-top h1{
+  font-family:"Playfair Display",serif;
+  font-size:70px;
+}
+
+.page-top p{
+  color:#777;
+  margin-top:15px;
+}
+
+.menu-controls{
+  padding:0 7% 35px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.filters{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.filter{
+  background:#111;
+  color:#888;
+  border:1px solid var(--line);
+  padding:9px 15px;
+  border-radius:100px;
+  transition:.2s;
+}
+
+.filter.active,
+.filter:hover{
+  background:#fff;
+  color:#000;
+}
+
+.search{
+  background:#111;
+  border:1px solid var(--line);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:4px;
+  width:220px;
+  outline:none;
+}
+
+.menu-grid{
+  padding:0 7% 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.food-card{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.food-card:hover{
+  transform:translateY(-6px);
+  border-color:#555;
+}
+
+.food-visual{
+  height:210px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:80px;
+  background:
+    radial-gradient(circle,#302a1e,#15130f 55%,#0c0c0c);
+}
+
+.food-info{
+  padding:23px;
+}
+
+.food-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.food-title{
+  font-family:"Playfair Display",serif;
+  font-size:24px;
+}
+
+.food-price{
+  color:var(--gold);
+  font-weight:700;
+}
+
+.food-description{
+  color:#737373;
+  font-size:13px;
+  line-height:1.6;
+  margin:12px 0 20px;
+}
+
+.add{
+  width:100%;
+  padding:11px;
+  background:#171717;
+  border:1px solid #303030;
+  color:#fff;
+  border-radius:4px;
+}
+
+.add:hover{
+  background:#fff;
+  color:#000;
+}
+
+/* =========================
+   RESERVATION PAGE
+========================= */
+
+.reservation-page{
+  padding:75px 7% 110px;
+}
+
+.reservation-layout{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:20px;
+  max-width:1250px;
+  margin:auto;
+}
+
+.steps{
+  background:#101010;
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:25px;
+  height:max-content;
+}
+
+.step{
+  display:flex;
+  gap:14px;
+  padding:18px 5px;
+  border-bottom:1px solid #202020;
+  color:#666;
+}
+
+.step:last-child{
+  border:0;
+}
+
+.step-number{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:1px solid #333;
+  font-size:11px;
+}
+
+.step.active{
+  color:#fff;
+}
+
+.step.active .step-number{
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+}
+
+.reservation-card{
+  background:#101010;
+  border:1px solid var(--line);
+  border-radius:7px;
+  overflow:hidden;
+}
+
+.res-head{
+  padding:28px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.res-head h2{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+}
+
+.res-step{
+  display:none;
+  padding:30px;
+}
+
+.res-step.active{
+  display:block;
+}
+
+/* PEOPLE */
+
+.people-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.people{
+  padding:20px 10px;
+  background:#151515;
+  border:1px solid var(--line);
+  color:#aaa;
+  border-radius:5px;
+}
+
+.people.selected{
+  border-color:var(--gold);
+  color:#fff;
+  background:#1b1914;
+}
+
+/* DATE */
+
+.date-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  margin-top:20px;
+}
+
+.day{
+  padding:13px 4px;
+  background:#151515;
+  border:1px solid var(--line);
+  color:#777;
+  border-radius:4px;
+  text-align:center;
+}
+
+.day strong{
+  display:block;
+  color:#aaa;
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.day.selected{
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+}
+
+.day.selected strong{
+  color:#000;
+}
+
+/* TIMES */
+
+.time-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.time{
+  padding:14px;
+  background:#151515;
+  border:1px solid var(--line);
+  color:#aaa;
+  border-radius:4px;
+}
+
+.time:hover,
+.time.selected{
+  border-color:var(--gold);
+  color:#fff;
+}
+
+/* TABLE */
+
+.table-room{
+  min-height:390px;
+  background:
+    radial-gradient(circle,#1b1812,#0c0c0c 70%);
+  border:1px solid #242424;
+  border-radius:7px;
+  position:relative;
+  overflow:hidden;
+}
+
+.room-label{
+  position:absolute;
+  top:20px;
+  left:20px;
+  color:#555;
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.table{
+  position:absolute;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:#222;
+  border:2px solid #444;
+  color:#777;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:11px;
+  transition:.2s;
+}
+
+.table:hover{
+  border-color:var(--gold);
+  color:#fff;
+}
+
+.table.selected{
+  background:#332d20;
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+.table.t1{left:12%;top:28%}
+.table.t2{left:42%;top:18%}
+.table.t3{right:12%;top:28%}
+.table.t4{left:27%;bottom:17%}
+.table.t5{right:27%;bottom:17%}
+
+.table-bar{
+  position:absolute;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%);
+  width:170px;
+  height:55px;
+  border:1px solid #333;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#555;
+  letter-spacing:3px;
+  font-size:10px;
+}
+
+.preference-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.preference{
+  padding:17px;
+  border:1px solid var(--line);
+  background:#151515;
+  color:#888;
+  border-radius:5px;
+}
+
+.preference.selected{
+  border-color:var(--gold);
+  color:#fff;
+}
+
+.res-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:25px;
+}
+
+/* SUMMARY */
+
+.summary{
+  background:#151515;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:22px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #242424;
+  color:#888;
+}
+
+.summary-row strong{
+  color:#fff;
+}
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.experience{
+  padding:80px 7% 110px;
+}
+
+.experience-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.experience-card{
+  min-height:330px;
+  padding:40px;
+  background:#111;
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  border-radius:8px;
+}
+
+.experience-card:after{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background:rgba(201,167,106,.06);
+  right:-70px;
+  bottom:-70px;
+}
+
+.experience-card h3{
+  font-family:"Playfair Display",serif;
+  font-size:34px;
+  margin:60px 0 12px;
+}
+
+.experience-card p{
+  color:#777;
+  line-height:1.7;
+  max-width:500px;
+}
+
+/* =========================
+   MEMBERSHIP
+========================= */
+
+.membership{
+  padding:80px 7% 110px;
+}
+
+.membership-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.member{
+  background:#111;
+  border:1px solid var(--line);
+  padding:35px;
+  border-radius:7px;
+}
+
+.member.featured{
+  border-color:var(--gold);
+  transform:translateY(-8px);
+}
+
+.member h3{
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+}
+
+.member-price{
+  font-size:36px;
+  margin:20px 0;
+}
+
+.member ul{
+  list-style:none;
+  color:#777;
+  line-height:2.3;
+  font-size:13px;
+}
+
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews{
+  padding:80px 7% 110px;
+}
+
+.review-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.review{
+  background:#111;
+  border:1px solid var(--line);
+  padding:28px;
+  border-radius:7px;
+}
+
+.stars{
+  color:var(--gold);
+  letter-spacing:3px;
+}
+
+.review p{
+  color:#888;
+  line-height:1.7;
+  margin:20px 0;
+}
+
+.review small{
+  color:#555;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+  padding:80px 7% 110px;
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:190px;
+  gap:10px;
+}
+
+.gallery-item{
+  background:
+    radial-gradient(circle at center,#302a20,#111 65%);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  border-radius:5px;
+}
+
+.gallery-item.big{
+  grid-column:span 2;
+  grid-row:span 2;
+  font-size:100px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+  padding:80px 7% 110px;
+}
+
+.contact-layout{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.contact-box{
+  background:#111;
+  border:1px solid var(--line);
+  padding:35px;
+  border-radius:7px;
+}
+
+.contact-box h3{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  margin-bottom:20px;
+}
+
+.contact-box p{
+  color:#777;
+  line-height:1.8;
+}
+
+.contact-email{
+  color:var(--gold);
+  display:inline-block;
+  margin-top:20px;
+  text-decoration:none;
+}
+
+/* =========================
+   CART
+========================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:8000;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.cart{
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:min(450px,100%);
+  background:#101010;
+  border-left:1px solid #333;
+  transform:translateX(100%);
+  transition:.35s;
+  display:flex;
+  flex-direction:column;
+}
+
+.overlay.open .cart{
+  transform:translateX(0);
+}
+
+.cart-head{
+  padding:25px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+}
+
+.close{
+  background:none;
+  border:0;
+  color:#888;
+  font-size:26px;
+}
+
+.cart-list{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+}
+
+.empty{
+  text-align:center;
+  color:#555;
+  padding:80px 20px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 0;
+  border-bottom:1px solid #222;
+}
+
+.cart-icon{
+  font-size:30px;
+}
+
+.cart-info{
+  flex:1;
+}
+
+.cart-info strong{
+  display:block;
+}
+
+.cart-info small{
+  color:#777;
+}
+
+.remove{
+  border:0;
+  background:none;
+  color:#666;
+  font-size:20px;
+}
+
+.cart-bottom{
+  padding:20px;
+  border-top:1px solid var(--line);
+}
+
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box{
+  width:min(550px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#111;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:32px;
+  transform:translateY(15px);
+  transition:.25s;
+}
+
+.modal.open .modal-box{
+  transform:translateY(0);
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.modal-header h2{
+  font-family:"Playfair Display",serif;
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group label{
+  display:block;
+  font-size:10px;
+  color:#777;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  background:#171717;
+  color:#fff;
+  border:1px solid #2d2d2d;
+  border-radius:4px;
+  padding:13px;
+  outline:none;
+}
+
+.form-group textarea{
+  resize:vertical;
+  min-height:100px;
+}
+
+.payment-warning{
+  color:#555;
+  font-size:10px;
+  line-height:1.6;
+  margin-top:12px;
+}
+
+.success{
+  text-align:center;
+  padding:20px;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  background:var(--green);
+  color:#071007;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+}
+
+.success h2{
+  font-family:"Playfair Display",serif;
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.success p{
+  color:#777;
+  line-height:1.7;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  z-index:99999;
+  bottom:25px;
+  left:50%;
+  transform:translate(-50%,25px);
+  background:#fff;
+  color:#000;
+  padding:13px 20px;
+  border-radius:4px;
+  font-weight:700;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+  .nav{
+    padding:0 20px;
+  }
+
+  .nav{
+    height:68px;
+  }
+
+  .nav{
+    padding-top:0;
+  }
+
+  .nav button{
+    display:none;
+  }
+
+  .page{
+    padding-top:68px;
+  }
+
+  .feature-grid,
+  .menu-grid,
+  .membership-grid,
+  .review-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .reservation-layout{
+    grid-template-columns:1fr;
+  }
+
+  .steps{
+    display:none;
+  }
+
+  .experience-grid,
+  .contact-layout{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .feature-grid,
+  .menu-grid,
+  .membership-grid,
+  .review-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-title{
+    font-size:75px;
+  }
+
+  .page-top h1{
+    font-size:50px;
+  }
+
+  .people-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .date-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .time-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .preference-grid{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .gallery-item.big{
+    grid-column:span 2;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-title">EL MESÓN</div>
+    <div class="loader-bar"><span></span></div>
+    <div class="loader-sub">PREPARANDO LA EXPERIENCIA</div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+    EL <span>MESÓN</span>
+  </div>
+
+  <nav class="nav">
+
+    <button class="active" onclick="goPage('home',this)">
+      Inicio
+    </button>
+
+    <button onclick="goPage('menu',this)">
+      Menú
+    </button>
+
+    <button onclick="goPage('reservas',this)">
+      Reservas
+    </button>
+
+    <button onclick="goPage('experiencia',this)">
+      Experiencia
+    </button>
+
+    <button onclick="goPage('membresia',this)">
+      Membresía
+    </button>
+
+    <button onclick="goPage('galeria',this)">
+      Galería
+    </button>
+
+    <button onclick="goPage('reseñas',this)">
+      Reseñas
+    </button>
+
+    <button onclick="goPage('contacto',this)">
+      Contacto
+    </button>
+
+  </nav>
+
+  <div class="header-actions">
+
+    <button class="icon-btn" onclick="openCart()">
+      🛒 <span class="cart-number" id="cartNumber">0</span>
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main class="page active" id="page-home">
+
+  <section class="home-hero">
+
+    <div class="hero-content">
+
+      <div class="kicker">
+        Restaurante · Cocina · Experiencia
+      </div>
+
+      <h1 class="hero-title">
+        EL<br>
+        <span>MESÓN</span>
+      </h1>
+
+      <p class="hero-text">
+        Un restaurante diferente para una experiencia
+        que probablemente no habías planeado.
+      </p>
+
+      <div class="hero-actions">
+
+        <button class="btn btn-gold"
+          onclick="goPage('menu')">
+          EXPLORAR MENÚ
+        </button>
+
+        <button class="btn btn-dark"
+          onclick="goPage('reservas')">
+          RESERVAR MESA
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="home-section">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        La experiencia
+      </div>
+
+      <h2>
+        No es solamente cenar.
+      </h2>
+
+      <p>
+        Es entrar, sentarte y preguntarte por qué has venido.
+      </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+
+        <div class="feature-icon">🍽️</div>
+
+        <h3>
+          Cocina única
+        </h3>
+
+        <p>
+          Una carta diseñada para que absolutamente
+          nadie sepa qué pedir.
+        </p>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">🕯️</div>
+
+        <h3>
+          Ambiente
+        </h3>
+
+        <p>
+          Elegante, oscuro y ligeramente sospechoso.
+        </p>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">🔐</div>
+
+        <h3>
+          Privacidad
+        </h3>
+
+        <p>
+          Lo que ocurre en la mesa se queda en la mesa.
+          Bueno, casi siempre.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<main class="page" id="page-menu">
+
+  <div class="page-top">
+
+    <div class="eyebrow">
+      La carta
+    </div>
+
+    <h1>
+      MENÚ
+    </h1>
+
+    <p>
+      Especialidades cuidadosamente seleccionadas.
+    </p>
+
+  </div>
+
+
+  <div class="menu-controls">
+
+    <div class="filters">
+
+      <button class="filter active"
+        onclick="filterMenu('all',this)">
+        Todo
+      </button>
+
+      <button class="filter"
+        onclick="filterMenu('especial',this)">
+        Especialidades
+      </button>
+
+      <button class="filter"
+        onclick="filterMenu('clasico',this)">
+        Clásicos
+      </button>
+
+      <button class="filter"
+        onclick="filterMenu('premium',this)">
+        Premium
+      </button>
+
+    </div>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="Buscar en la carta..."
+      oninput="searchMenu()"
+    >
+
+  </div>
+
+
+  <div class="menu-grid" id="menuGrid">
+
+    <article class="food-card" data-category="especial" data-name="pierna derecha">
+
+      <div class="food-visual">🥩</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Pierna Derecha
+          </h3>
+
+          <span class="food-price">
+            18€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          La especialidad de la casa.
+          Una presentación elegante y una receta
+          que no aparece en ningún libro.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Pierna Derecha',18,'🥩')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="food-card" data-category="especial" data-name="intestinos">
+
+      <div class="food-visual">🫀</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Intestinos
+          </h3>
+
+          <span class="food-price">
+            15€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          Uno de los platos más comentados
+          de nuestra peculiar carta.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Intestinos',15,'🫀')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="food-card" data-category="clasico" data-name="hamburguesa del mesón">
+
+      <div class="food-visual">🍔</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Hamburguesa del Mesón
+          </h3>
+
+          <span class="food-price">
+            11€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          La opción normal de la carta.
+          Para aquellos que todavía tienen dudas.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Hamburguesa del Mesón',11,'🍔')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="food-card" data-category="clasico" data-name="patatas de la casa">
+
+      <div class="food-visual">🍟</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Patatas de la Casa
+          </h3>
+
+          <span class="food-price">
+            6€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          Patatas. Esta vez no hay misterio.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Patatas de la Casa',6,'🍟')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="food-card" data-category="premium" data-name="menú vip">
+
+      <div class="food-visual">🥂</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Menú VIP
+          </h3>
+
+          <span class="food-price">
+            49€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          Una selección especial para clientes
+          que quieren subir de nivel.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Menú VIP',49,'🥂')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="food-card" data-category="premium" data-name="plato del propietario">
+
+      <div class="food-visual">👑</div>
+
+      <div class="food-info">
+
+        <div class="food-title-row">
+
+          <h3 class="food-title">
+            Plato del Propietario
+          </h3>
+
+          <span class="food-price">
+            75€
+          </span>
+
+        </div>
+
+        <p class="food-description">
+          La opción más exclusiva de toda la carta.
+        </p>
+
+        <button class="add"
+          onclick="addCart('Plato del Propietario',75,'👑')">
+          AÑADIR A LA CESTA
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</main>
+
+
+<!-- =========================
+     RESERVAS
+========================= -->
+
+<main class="page" id="page-reservas">
+
+  <section class="reservation-page">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Reservaciones
+      </div>
+
+      <h2>
+        Reserva tu mesa.
+      </h2>
+
+      <p>
+        Diseña tu visita paso a paso.
+      </p>
+
+    </div>
+
+
+    <div class="reservation-layout">
+
+      <aside class="steps">
+
+        <div class="step active" id="side1">
+          <span class="step-number">1</span>
+          <span>Personas</span>
+        </div>
+
+        <div class="step" id="side2">
+          <span class="step-number">2</span>
+          <span>Fecha</span>
+        </div>
+
+        <div class="step" id="side3">
+          <span class="step-number">3</span>
+          <span>Hora</span>
+        </div>
+
+        <div class="step" id="side4">
+          <span class="step-number">4</span>
+          <span>Mesa</span>
+        </div>
+
+        <div class="step" id="side5">
+          <span class="step-number">5</span>
+          <span>Preferencias</span>
+        </div>
+
+        <div class="step" id="side6">
+          <span class="step-number">6</span>
+          <span>Confirmación</span>
+        </div>
+
+      </aside>
+
+
+      <div class="reservation-card">
+
+        <div class="res-head">
+
+          <h2 id="reservationTitle">
+            ¿Cuántas personas?
+          </h2>
+
+          <span id="reservationProgress">
+            1 / 6
+          </span>
+
+        </div>
+
+
+        <!-- STEP 1 -->
+
+        <div class="res-step active" id="res1">
+
+          <div class="people-grid">
+
+            <button class="people" onclick="choosePeople(1,this)">1</button>
+            <button class="people" onclick="choosePeople(2,this)">2</button>
+            <button class="people" onclick="choosePeople(3,this)">3</button>
+            <button class="people" onclick="choosePeople(4,this)">4</button>
+            <button class="people" onclick="choosePeople(5,this)">5</button>
+            <button class="people" onclick="choosePeople(6,this)">6</button>
+            <button class="people" onclick="choosePeople(7,this)">7</button>
+            <button class="people" onclick="choosePeople(8,this)">8</button>
+
+          </div>
+
+          <div class="res-actions">
+
+            <span></span>
+
+            <button class="btn btn-gold"
+              onclick="nextReservation(2)">
+              CONTINUAR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div class="res-step" id="res2">
+
+          <p style="color:#777">
+            Selecciona un día disponible.
+          </p>
+
+          <div class="date-grid" id="dateGrid"></div>
+
+          <div class="res-actions">
+
+            <button class="btn btn-dark"
+              onclick="nextReservation(1)">
+              ATRÁS
+            </button>
+
+            <button class="btn btn-gold"
+              onclick="nextReservation(3)">
+              CONTINUAR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+
+        <div class="res-step" id="res3">
+
+          <p style="color:#777;margin-bottom:20px">
+            Selecciona tu horario.
+          </p>
+
+          <div class="time-grid">
+
+            <button class="time" onclick="chooseTime(this,'19:00')">19:00</button>
+            <button class="time" onclick="chooseTime(this,'19:30')">19:30</button>
+            <button class="time" onclick="chooseTime(this,'20:00')">20:00</button>
+            <button class="time" onclick="chooseTime(this,'20:30')">20:30</button>
+            <button class="time" onclick="chooseTime(this,'21:00')">21:00</button>
+            <button class="time" onclick="chooseTime(this,'21:30')">21:30</button>
+            <button class="time" onclick="chooseTime(this,'22:00')">22:00</button>
+            <button class="time" onclick="chooseTime(this,'22:30')">22:30</button>
+            <button class="time" onclick="chooseTime(this,'23:00')">23:00</button>
+            <button class="time" onclick="chooseTime(this,'23:30')">23:30</button>
+            <button class="time" onclick="chooseTime(this,'00:00')">00:00</button>
+            <button class="time" onclick="chooseTime(this,'00:30')">00:30</button>
+
+          </div>
+
+          <div class="res-actions">
+
+            <button class="btn btn-dark"
+              onclick="nextReservation(2)">
+              ATRÁS
+            </button>
+
+            <button class="btn btn-gold"
+              onclick="nextReservation(4)">
+              CONTINUAR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+
+        <div class="res-step" id="res4">
+
+          <p style="color:#777;margin-bottom:20px">
+            Elige una mesa.
+          </p>
+
+          <div class="table-room">
+
+            <div class="room-label">
+              SALA PRINCIPAL
+            </div>
+
+            <div class="table-bar">
+              MESÓN
+            </div>
+
+            <button class="table t1" onclick="chooseTable(this,'Mesa 01')">
+              01
+            </button>
+
+            <button class="table t2" onclick="chooseTable(this,'Mesa 02')">
+              02
+            </button>
+
+            <button class="table t3" onclick="chooseTable(this,'Mesa 03')">
+              03
+            </button>
+
+            <button class="table t4" onclick="chooseTable(this,'Mesa 04')">
+              04
+            </button>
+
+            <button class="table t5" onclick="chooseTable(this,'Mesa 05')">
+              05
+            </button>
+
+          </div>
+
+          <div class="res-actions">
+
+            <button class="btn btn-dark"
+              onclick="nextReservation(3)">
+              ATRÁS
+            </button>
+
+            <button class="btn btn-gold"
+              onclick="nextReservation(5)">
+              CONTINUAR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+
+        <div class="res-step" id="res5">
+
+          <p style="color:#777;margin-bottom:20px">
+            ¿Quieres añadir alguna preferencia?
+          </p>
+
+          <div class="preference-grid">
+
+            <button class="preference"
+              onclick="togglePreference(this)">
+              🕯️ Ambiente tranquilo
+            </button>
+
+            <button class="preference"
+              onclick="togglePreference(this)">
+              🪟 Cerca de ventana
+            </button>
+
+            <button class="preference"
+              onclick="togglePreference(this)">
+              🎵 Música baja
+            </button>
+
+            <button class="preference"
+              onclick="togglePreference(this)">
+              👑 Experiencia VIP
+            </button>
+
+          </div>
+
+          <div class="res-actions">
+
+            <button class="btn btn-dark"
+              onclick="nextReservation(4)">
+              ATRÁS
+            </button>
+
+            <button class="btn btn-gold"
+              onclick="nextReservation(6)">
+              VER RESUMEN
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- STEP 6 -->
+
+        <div class="res-step" id="res6">
+
+          <div class="summary">
+
+            <div class="summary-row">
+              <span>Personas</span>
+              <strong id="sumPeople">—</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Fecha</span>
+              <strong id="sumDate">—</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Hora</span>
+              <strong id="sumTime">—</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Mesa</span>
+              <strong id="sumTable">—</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Preferencias</span>
+              <strong id="sumPrefs">Ninguna</strong>
+            </div>
+
+          </div>
+
+
+          <div style="margin-top:20px">
+
+            <div class="form-group">
+
+              <label>
+                Nombre para la reserva
+              </label>
+
+              <input
+                id="guestName"
+                placeholder="Tu nombre"
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="res-actions">
+
+            <button class="btn btn-dark"
+              onclick="nextReservation(5)">
+              ATRÁS
+            </button>
+
+            <button class="btn btn-gold"
+              onclick="confirmReservation()">
+              CONFIRMAR RESERVA
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     EXPERIENCIA
+========================= -->
+
+<main class="page" id="page-experiencia">
+
+  <section class="experience">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Experiencias
+      </div>
+
+      <h2>
+        Elige tu manera de entrar.
+      </h2>
+
+    </div>
+
+
+    <div class="experience-grid">
+
+      <div class="experience-card">
+
+        <div class="feature-icon">🍽️</div>
+
+        <h3>
+          Cena clásica
+        </h3>
+
+        <p>
+          Una mesa, una carta y cero explicaciones.
+        </p>
+
+      </div>
+
+
+      <div class="experience-card">
+
+        <div class="feature-icon">🥂</div>
+
+        <h3>
+          Noche VIP
+        </h3>
+
+        <p>
+          Acceso a una selección exclusiva de la casa.
+        </p>
+
+      </div>
+
+
+      <div class="experience-card">
+
+        <div class="feature-icon">🕯️</div>
+
+        <h3>
+          Sala privada
+        </h3>
+
+        <p>
+          Menos ruido. Más misterio.
+        </p>
+
+      </div>
+
+
+      <div class="experience-card">
+
+        <div class="feature-icon">🔐</div>
+
+        <h3>
+          Experiencia secreta
+        </h3>
+
+        <p>
+          No podemos explicar exactamente qué incluye.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     MEMBRESIA
+========================= -->
+
+<main class="page" id="page-membresia">
+
+  <section class="membership">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Club del Mesón
+      </div>
+
+      <h2>
+        Membresías.
+      </h2>
+
+      <p>
+        Niveles completamente ficticios para clientes completamente reales.
+      </p>
+
+    </div>
+
+
+    <div class="membership-grid">
+
+      <div class="member">
+
+        <h3>
+          Casual
+        </h3>
+
+        <div class="member-price">
+          0€
+        </div>
+
+        <ul>
+          <li>✓ Acceso al menú</li>
+          <li>✓ Reservas normales</li>
+          <li>✓ Cero privilegios</li>
+          <li>✓ Totalmente gratis</li>
+        </ul>
+
+        <br>
+
+        <button class="btn btn-dark btn-wide"
+          onclick="showToast('Membresía seleccionada.')">
+          ELEGIR
+        </button>
+
+      </div>
+
+
+      <div class="member featured">
+
+        <h3>
+          VIP
+        </h3>
+
+        <div class="member-price">
+          19€
+        </div>
+
+        <ul>
+          <li>✓ Reservas prioritarias</li>
+          <li>✓ Mesa preferente</li>
+          <li>✓ Menú VIP</li>
+          <li>✓ Acceso especial</li>
+        </ul>
+
+        <br>
+
+        <button class="btn btn-gold btn-wide"
+          onclick="showToast('VIP activado... ficticiamente.')">
+          ELEGIR VIP
+        </button>
+
+      </div>
+
+
+      <div class="member">
+
+        <h3>
+          Propietario
+        </h3>
+
+        <div class="member-price">
+          99€
+        </div>
+
+        <ul>
+          <li>✓ Todo lo anterior</li>
+          <li>✓ Mesa exclusiva</li>
+          <li>✓ Acceso secreto</li>
+          <li>✓ Nadie sabe qué incluye</li>
+        </ul>
+
+        <br>
+
+        <button class="btn btn-dark btn-wide"
+          onclick="showToast('Nivel demasiado sospechoso.')">
+          ELEGIR
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     GALERIA
+========================= -->
+
+<main class="page" id="page-galeria">
+
+  <section class="gallery">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Galería
+      </div>
+
+      <h2>
+        Dentro del Mesón.
+      </h2>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item big">🏛️</div>
+      <div class="gallery-item">🕯️</div>
+      <div class="gallery-item">🍷</div>
+      <div class="gallery-item">🍽️</div>
+      <div class="gallery-item">🥂</div>
+      <div class="gallery-item">🔐</div>
+      <div class="gallery-item">👑</div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     RESEÑAS
+========================= -->
+
+<main class="page" id="page-reseñas">
+
+  <section class="reviews">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Opiniones
+      </div>
+
+      <h2>
+        Dicen cosas.
+      </h2>
+
+      <p>
+        Reseñas completamente ficticias.
+      </p>
+
+    </div>
+
+
+    <div class="review-grid">
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p>
+          "No sé qué pedí. El camarero tampoco.
+          Volvería."
+        </p>
+
+        <small>
+          Cliente #001
+        </small>
+
+      </div>
+
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p>
+          "La mesa estaba increíble.
+          No pregunté por qué había una puerta cerrada."
+        </p>
+
+        <small>
+          Cliente #017
+        </small>
+
+      </div>
+
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★☆
+        </div>
+
+        <p>
+          "Experiencia bastante normal
+          considerando el restaurante."
+        </p>
+
+        <small>
+          Cliente #404
+        </small>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     CONTACTO
+========================= -->
+
+<main class="page" id="page-contacto">
+
+  <section class="contact">
+
+    <div class="section-header">
+
+      <div class="eyebrow">
+        Contacto
+      </div>
+
+      <h2>
+        ¿Necesitas hablar?
+      </h2>
+
+      <p>
+        El Mesón está disponible para tus preguntas.
+      </p>
+
+    </div>
+
+
+    <div class="contact-layout">
+
+      <div class="contact-box">
+
+        <h3>
+          Escríbenos.
+        </h3>
+
+        <p>
+          Para reservas, preguntas, colaboraciones
+          o cualquier cosa que no tenga sentido.
+        </p>
+
+        <a
+          class="contact-email"
+          href="mailto:laisla777@gmail.com"
+        >
+          laisla777@gmail.com
+        </a>
+
+      </div>
+
+
+      <div class="contact-box">
+
+        <h3>
+          Horario
+        </h3>
+
+        <p>
+          Lunes — Domingo<br>
+          19:00 — 02:00
+          <br><br>
+          Internet, España
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer style="
+  padding:50px 7%;
+  background:#050505;
+  border-top:1px solid #222;
+">
+
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+    flex-wrap:wrap;
+  ">
+
+    <div>
+
+      <div class="logo">
+        EL <span>MESÓN</span>
+      </div>
+
+      <p style="color:#555;margin-top:12px;font-size:12px">
+        Alta cocina. Baja explicación.
+      </p>
+
+    </div>
+
+
+    <div style="color:#555;font-size:12px;line-height:2">
+
+      <div>
+        Contacto:
+        <a href="mailto:laisla777@gmail.com"
+           style="color:#c9a76a;text-decoration:none">
+          laisla777@gmail.com
+        </a>
+      </div>
+
+      <div>
+        © 2026 EL MESÓN
+      </div>
+
+      <div>
+        Proyecto ficticio / parodia.
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     CART
+========================= -->
+
+<div class="overlay" id="cartOverlay"
+     onclick="closeCartOutside(event)">
+
+  <div class="cart">
+
+    <div class="cart-head">
+
+      <strong>
+        TU CESTA
+      </strong>
+
+      <button class="close"
+        onclick="closeCart()">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="cart-list"
+         id="cartList">
+
+      <div class="empty">
+        Tu cesta está vacía.
+      </div>
+
+    </div>
+
+
+    <div class="cart-bottom">
+
+      <div class="cart-total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="cartTotal">
+          0,00€
+        </span>
+
+      </div>
+
+      <button class="btn btn-gold btn-wide"
+        onclick="openPayment()">
+        CONTINUAR AL PAGO
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     PAYMENT MODAL
+========================= -->
+
+<div class="modal" id="paymentModal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>
+        Pago
+      </h2>
+
+      <button class="close"
+        onclick="closePayment()">
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="paymentContent">
+
+      <div class="form-group">
+
+        <label>
+          Número de tarjeta
+        </label>
+
+        <input
+          placeholder="0000 0000 0000 0000"
+          maxlength="19"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Titular
+        </label>
+
+        <input
+          placeholder="NOMBRE APELLIDOS"
+        >
+
+      </div>
+
+
+      <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+      ">
+
+        <div class="form-group">
+
+          <label>
+            Caducidad
+          </label>
+
+          <input placeholder="MM/AA">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            CVV
+          </label>
+
+          <input placeholder="•••">
+
+        </div>
+
+      </div>
+
+
+      <div class="cart-total">
+
+        <span>
+          Total
+        </span>
+
+        <span id="paymentTotal">
+          0,00€
+        </span>
+
+      </div>
+
+
+      <button class="btn btn-gold btn-wide"
+        onclick="fakePayment()">
+        PAGAR AHORA
+      </button>
+
+
+      <p class="payment-warning">
+        DEMO VISUAL: este formulario no procesa pagos,
+        no guarda información y no envía datos.
+        No introduzcas datos reales.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function goPage(page,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  const target =
+    document.getElementById("page-" + page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b => b.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   LOADER
+========================= */
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("loader")
+      .classList.add("hide");
+
+  },1900);
+
+});
+
+
+/* =========================
+   CART
+========================= */
+
+let cart=[];
+
+
+function addCart(name,price,icon){
+
+  cart.push({
+    name,
+    price,
+    icon
+  });
+
+  updateCart();
+
+  showToast(
+    name + " añadido a la cesta."
+  );
+
+}
+
+
+function updateCart(){
+
+  document
+    .getElementById("cartNumber")
+    .textContent=cart.length;
+
+
+  const list =
+    document.getElementById("cartList");
+
+  let total=0;
+
+
+  if(cart.length===0){
+
+    list.innerHTML=
+      '<div class="empty">Tu cesta está vacía.</div>';
+
+    document
+      .getElementById("cartTotal")
+      .textContent="0,00€";
+
+    return;
+
+  }
+
+
+  list.innerHTML="";
+
+
+  cart.forEach((item,index)=>{
+
+    total+=item.price;
+
+    const div=
+      document.createElement("div");
+
+    div.className="cart-item";
+
+    div.innerHTML=`
+
+      <div class="cart-icon">
+        ${item.icon}
+      </div>
+
+      <div class="cart-info">
+
+        <strong>
+          ${item.name}
+        </strong>
+
+        <small>
+          ${item.price.toFixed(2)}€
+        </small>
+
+      </div>
+
+      <button
+        class="remove"
+        onclick="removeCart(${index})">
+        ×
+      </button>
+
+    `;
+
+    list.appendChild(div);
+
+  });
+
+
+  document
+    .getElementById("cartTotal")
+    .textContent=
+      total.toFixed(2).replace(".",",")+"€";
+
+}
+
+
+function removeCart(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+}
+
+
+function openCart(){
+
+  document
+    .getElementById("cartOverlay")
+    .classList.add("open");
+
+}
+
+
+function closeCart(){
+
+  document
+    .getElementById("cartOverlay")
+    .classList.remove("open");
+
+}
+
+
+function closeCartOutside(e){
+
+  if(e.target.id==="cartOverlay"){
+    closeCart();
+  }
+
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function openPayment(){
+
+  if(cart.length===0){
+
+    showToast(
+      "Primero añade algo a la cesta."
+    );
+
+    return;
+
+  }
+
+
+  let total=0;
+
+  cart.forEach(i=>{
+    total+=i.price;
+  });
+
+
+  document
+    .getElementById("paymentTotal")
+    .textContent=
+      total.toFixed(2).replace(".",",")+"€";
+
+
+  document
+    .getElementById("paymentModal")
+    .classList.add("open");
+
+}
+
+
+function closePayment(){
+
+  document
+    .getElementById("paymentModal")
+    .classList.remove("open");
+
+}
+
+
+function fakePayment(){
+
+  document
+    .getElementById("paymentContent")
+    .innerHTML=`
+
+      <div class="success">
+
+        <div class="success-icon">
+          ✓
+        </div>
+
+        <h2>
+          Pedido confirmado
+        </h2>
+
+        <p>
+          Tu pedido ficticio ha sido registrado.
+          <br><br>
+          No se ha realizado ningún pago real.
+        </p>
+
+        <br>
+
+        <button
+          class="btn btn-gold"
+          onclick="finishPayment()">
+          VOLVER AL MESÓN
+        </button>
+
+      </div>
+
+  `;
+
+}
+
+
+function finishPayment(){
+
+  cart=[];
+
+  updateCart();
+
+  closePayment();
+
+  closeCart();
+
+  showToast(
+    "Pedido ficticio confirmado."
+  );
+
+}
+
+
+/* =========================
+   MENU FILTER
+========================= */
+
+function filterMenu(category,button){
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(b=>{
+      b.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+
+  document
+    .querySelectorAll(".food-card")
+    .forEach(card=>{
+
+      if(
+        category==="all" ||
+        card.dataset.category===category
+      ){
+
+        card.style.display="block";
+
+      }else{
+
+        card.style.display="none";
+
+      }
+
+    });
+
+}
+
+
+function searchMenu(){
+
+  const query=
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+
+  document
+    .querySelectorAll(".food-card")
+    .forEach(card=>{
+
+      const name=
+        card.dataset.name;
+
+      card.style.display=
+        name.includes(query)
+        ? "block"
+        : "none";
+
+    });
+
+}
+
+
+/* =========================
+   RESERVATION STATE
+========================= */
+
+let reservation={
+  people:null,
+  date:null,
+  time:null,
+  table:null,
+  preferences:[]
+};
+
+
+function nextReservation(step){
+
+  document
+    .querySelectorAll(".res-step")
+    .forEach(s=>{
+      s.classList.remove("active");
+    });
+
+  document
+    .getElementById("res"+step)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".step")
+    .forEach(s=>{
+      s.classList.remove("active");
+    });
+
+
+  for(let i=1;i<=step;i++){
+
+    document
+      .getElementById("side"+i)
+      .classList.add("active");
+
+  }
+
+
+  document
+    .getElementById("reservationProgress")
+    .textContent=
+      step+" / 6";
+
+
+  const titles=[
+    "",
+    "¿Cuántas personas?",
+    "Elige una fecha",
+    "Selecciona una hora",
+    "Elige tu mesa",
+    "Añade preferencias",
+    "Confirma tu reserva"
+  ];
+
+
+  document
+    .getElementById("reservationTitle")
+    .textContent=titles[step];
+
+
+  if(step===2){
+    buildDates();
+  }
+
+
+  if(step===6){
+    updateSummary();
+  }
+
+}
+
+
+function choosePeople(number,button){
+
+  reservation.people=number;
+
+  document
+    .querySelectorAll(".people")
+    .forEach(b=>{
+      b.classList.remove("selected");
+    });
+
+  button.classList.add("selected");
+
+}
+
+
+function buildDates(){
+
+  const grid=
+    document.getElementById("dateGrid");
+
+  grid.innerHTML="";
+
+
+  const today=
+    new Date();
+
+
+  for(let i=0;i<14;i++){
+
+    const date=
+      new Date(today);
+
+    date.setDate(
+      today.getDate()+i
+    );
+
+
+    const dayNames=[
+      "DOM","LUN","MAR","MIÉ",
+      "JUE","VIE","SÁB"
+    ];
+
+
+    const button=
+      document.createElement("button");
+
+    button.className="day";
+
+
+    const value=
+      date.toISOString().split("T")[0];
+
+
+    button.innerHTML=`
+
+      <strong>
+        ${dayNames[date.getDay()]}
+      </strong>
+
+      ${date.getDate()}
+
+    `;
+
+
+    button.onclick=()=>{
+
+      document
+        .querySelectorAll(".day")
+        .forEach(b=>{
+          b.classList.remove("selected");
+        });
+
+      button.classList.add("selected");
+
+      reservation.date=value;
+
+    };
+
+
+    grid.appendChild(button);
+
+  }
+
+}
+
+
+function chooseTime(button,time){
+
+  reservation.time=time;
+
+  document
+    .querySelectorAll(".time")
+    .forEach(b=>{
+      b.classList.remove("selected");
+    });
+
+  button.classList.add("selected");
+
+}
+
+
+function chooseTable(button,name){
+
+  reservation.table=name;
+
+  document
+    .querySelectorAll(".table")
+    .forEach(b=>{
+      b.classList.remove("selected");
+    });
+
+  button.classList.add("selected");
+
+}
+
+
+function togglePreference(button){
+
+  button.classList.toggle("selected");
+
+
+  const text=
+    button.textContent.trim();
+
+
+  if(
+    reservation.preferences.includes(text)
+  ){
+
+    reservation.preferences=
+      reservation.preferences.filter(
+        p=>p!==text
+      );
+
+  }else{
+
+    reservation.preferences.push(text);
+
+  }
+
+}
+
+
+function updateSummary(){
+
+  document
+    .getElementById("sumPeople")
+    .textContent=
+      reservation.people
+      ? reservation.people+" persona(s)"
+      : "No seleccionado";
+
+
+  document
+    .getElementById("sumDate")
+    .textContent=
+      reservation.date
+      || "No seleccionado";
+
+
+  document
+    .getElementById("sumTime")
+    .textContent=
+      reservation.time
+      || "No seleccionado";
+
+
+  document
+    .getElementById("sumTable")
+    .textContent=
+      reservation.table
+      || "No seleccionado";
+
+
+  document
+    .getElementById("sumPrefs")
+    .textContent=
+      reservation.preferences.length
+      ? reservation.preferences.join(", ")
+      : "Ninguna";
+
+}
+
+
+function confirmReservation(){
+
+  const name=
+    document
+      .getElementById("guestName")
+      .value.trim();
+
+
+  if(!name){
+
+    showToast(
+      "Introduce tu nombre."
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("res6")
+    .innerHTML=`
+
+      <div class="success">
+
+        <div class="success-icon">
+          ✓
+        </div>
+
+        <h2>
+          Reserva confirmada
+        </h2>
+
+        <p>
+          ${name}, tu mesa ficticia está preparada.
+          <br><br>
+
+          ${reservation.date || "Fecha pendiente"}
+          ·
+          ${reservation.time || "Hora pendiente"}
+          <br>
+
+          ${reservation.table || "Mesa pendiente"}
+        </p>
+
+        <br>
+
+        <button
+          class="btn btn-gold"
+          onclick="resetReservation()">
+          NUEVA RESERVA
+        </button>
+
+      </div>
+
+  `;
+
+}
+
+
+function resetReservation(){
+
+  location.reload();
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+
+  clearTimeout(toastTimer);
+
+
+  toastTimer=setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2200);
+
+}
+
+</script>
+
+</body>
+</html>
+```
